@@ -1,0 +1,48 @@
+
+/* Class = "UITextField"; placeholder = "البريد الالكتروني"; ObjectID = "7Vj-s2-GXI"; */
+"7Vj-s2-GXI.placeholder" = "البريد الالكتروني";
+
+/* Class = "UITextField"; placeholder = "رقم الهاتف مثال : ٩٦٦٥١٢٣٤٥٦٧٨٩"; ObjectID = "8Mq-B2-wj8"; */
+"8Mq-B2-wj8.placeholder" = "رقم الهاتف مثال : ٩٦٦٥١٢٣٤٥٦٧٨٩";
+
+/* Class = "UILabel"; text = "تسجيل دخول"; ObjectID = "Fud-i5-f46"; */
+"Fud-i5-f46.text" = "تسجيل دخول";
+
+/* Class = "UILabel"; text = "انشاء حساب"; ObjectID = "PUG-0k-7GB"; */
+"PUG-0k-7GB.text" = "انشاء حساب";
+
+/* Class = "UIButton"; normalTitle = "انشئ حساباً"; ObjectID = "Ph8-Ec-wYp"; */
+"Ph8-Ec-wYp.normalTitle" = "انشئ حساباً";
+
+/* Class = "UIButton"; normalTitle = "انشاء حساب"; ObjectID = "QFT-BU-Ngp"; */
+"QFT-BU-Ngp.normalTitle" = "انشاء حساب";
+
+/* Class = "UIButton"; normalTitle = "دخول"; ObjectID = "UEz-f8-HHB"; */
+"UEz-f8-HHB.normalTitle" = "دخول";
+
+/* Class = "UIButton"; normalTitle = "تسجيل الدخول"; ObjectID = "YKq-lS-WzO"; */
+"YKq-lS-WzO.normalTitle" = "تسجيل الدخول";
+
+/* Class = "UIButton"; normalTitle = "إنشاء حساب"; ObjectID = "e4r-nc-aL4"; */
+"e4r-nc-aL4.normalTitle" = "إنشاء حساب";
+
+/* Class = "UIButton"; normalTitle = "تسجيل دخول"; ObjectID = "hOK-KK-alU"; */
+"hOK-KK-alU.normalTitle" = "تسجيل دخول";
+
+/* Class = "UILabel"; text = "ليس لديك حساب؟"; ObjectID = "pyE-3z-4Kr"; */
+"pyE-3z-4Kr.text" = "ليس لديك حساب؟";
+
+/* Class = "UITextField"; placeholder = "رقم الهاتف او البريد الالكتروني"; ObjectID = "qpg-vr-SDI"; */
+"qpg-vr-SDI.placeholder" = "رقم الهاتف او البريد الالكتروني";
+
+/* Class = "UITextField"; placeholder = "كلمة السر"; ObjectID = "r00-SZ-cuo"; */
+"r00-SZ-cuo.placeholder" = "كلمة السر";
+
+/* Class = "UILabel"; text = "هل لديك حساب ؟"; ObjectID = "rfN-qe-GyH"; */
+"rfN-qe-GyH.text" = "هل لديك حساب ؟";
+
+/* Class = "UILabel"; text = "ليس لديك حساب ؟"; ObjectID = "u5P-KO-r2M"; */
+"u5P-KO-r2M.text" = "ليس لديك حساب ؟";
+
+/* Class = "UITextField"; placeholder = "كلمة السر"; ObjectID = "xp8-L0-1JN"; */
+"xp8-L0-1JN.placeholder" = "كلمة السر";

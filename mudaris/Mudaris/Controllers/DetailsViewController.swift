@@ -42,6 +42,9 @@ class DetailsViewController: UIViewController {
     // Do any additional setup after loading the view.
     
     checkBoxButton.setBackgroundImage(UIImage(named: "checkBox_Yes"), for: .selected)
+    self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    self.navigationController!.navigationBar.shadowImage = UIImage()
+    self.navigationController!.navigationBar.isTranslucent = true
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -55,28 +58,35 @@ class DetailsViewController: UIViewController {
   @IBAction func requestButtonTapped(_ sender: UIButton) {
     if checkBoxButton.isSelected {
       print("~~ YES")
-      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let pvc = storyboard.instantiateViewController(withIdentifier: "InvoiceController") as! InvoiceController
-      pvc.array = array
-      pvc.arrayDate = array?.requestDate
-      pvc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-      self.present(pvc, animated: true, completion: nil)
+      performSegue(withIdentifier: "requestShow", sender: nil)
     } else {
       print("~~ NO")
     }
     
   }
   
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case "reservationShow":
+      if let vc = segue.destination as? InvoiceController {
+        vc.array = array
+        vc.arrayDate = array?.reservationDate
+      }
+    case "requestShow":
+      if let vc = segue.destination as? InvoiceController {
+        vc.array = array
+        vc.arrayDate = array?.reservationDate
+      }
+    default:
+      print("Other")
+    }
+  }
+  
   
   @IBAction func reservationButtonTapped(_ sender: UIButton) {
     if checkBoxButton.isSelected {
       print("~~ YES")
-      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let pvc = storyboard.instantiateViewController(withIdentifier: "InvoiceController") as! InvoiceController
-      pvc.array = array
-      pvc.arrayDate = array?.reservationDate
-      pvc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-      self.present(pvc, animated: true, completion: nil)
+      performSegue(withIdentifier: "reservationShow", sender: nil)
     } else {
       print("~~ NO")
     }

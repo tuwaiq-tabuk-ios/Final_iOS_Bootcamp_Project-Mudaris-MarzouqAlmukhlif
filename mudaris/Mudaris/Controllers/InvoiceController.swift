@@ -15,54 +15,34 @@ class InvoiceController: UIViewController,FSCalendarDelegate,FSCalendarDataSourc
   var selectedPaymentMethodIndex: Int?
   
   //MARK: Outlet
-  @IBOutlet weak var errorCodeLabel : UILabel!
-  @IBOutlet weak var payButton: UIButton!
-  @IBOutlet weak var amountTextField: UITextField!
-  @IBOutlet weak var resultTextView: UITextView!
   @IBOutlet weak var collectionView: UICollectionView!
-  @IBOutlet var cardInfoStackViews: [UIStackView]!
-  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-  @IBOutlet weak var cardNumberTextField: UITextField!
-  @IBOutlet weak var cardHolderNameTextField: UITextField!
-  @IBOutlet weak var monthTextField: UITextField!
-  @IBOutlet weak var yearTextField: UITextField!
-  @IBOutlet weak var secureCodeTextField: UITextField!
-  @IBOutlet weak var sendPaymentButton: UIButton!
-  @IBOutlet weak var sendPaymentActivityIndicator: UIActivityIndicatorView!
   
+  @IBOutlet var timeCollectionView: UICollectionView!
   
-  //at list one product Required
-  let productList = NSMutableArray()
-
   @IBOutlet var viewIn: UIView!
   @IBOutlet var viewBlack: UIView!
-  
   @IBOutlet var calender: FSCalendar!
-  
   @IBOutlet var buttonTimeOne: UIButton!
   @IBOutlet var buttonTimeTwo: UIButton!
   @IBOutlet var buttonTimeThree: UIButton!
+  @IBOutlet var teacherSelected: UILabel!
+  @IBOutlet var ordarLabel: UILabel!
+  @IBOutlet var dayLabel: UILabel!
+  @IBOutlet var dateLabel: UILabel!
+  @IBOutlet var timeLabel: UILabel!
+  @IBOutlet var InvoiceOneStackView: UIStackView!
+  @IBOutlet var InvoiceTwoStackView: UIStackView!
+  @IBOutlet var payButton: UIButton!
+  
   
   var array:Teachers?
   var arrayDate:[DateTime]?
-  
   var selectedDate:String?
   var selectedTime:String?
-  
-  @IBOutlet var teacherSelected: UILabel!
-  
-  @IBOutlet var ordarLabel: UILabel!
-  
-  @IBOutlet var dayLabel: UILabel!
-  
-  @IBOutlet var dateLabel: UILabel!
-  
-  @IBOutlet var timeLabel: UILabel!
-  
-  
-  
-  @IBOutlet var InvoiceOneStackView: UIStackView!
-  @IBOutlet var InvoiceTwoStackView: UIStackView!
+  let invoiceValue:Decimal = 5
+  var timeArray = [String]()
+
+
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -134,7 +114,6 @@ class InvoiceController: UIViewController,FSCalendarDelegate,FSCalendarDataSourc
   func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
     let array = arrayDate
     var dateArray = [String]()
-    var timeArray = [String]()
     let dateCalendar = getDate(date)
     
     array?.forEach({ DateTime in
@@ -146,10 +125,10 @@ class InvoiceController: UIViewController,FSCalendarDelegate,FSCalendarDataSourc
       }
       
     })
-    
-    buttonTimeOne.setTitle(timeArray[0], for: .normal)
-    buttonTimeTwo.setTitle(timeArray[1], for: .normal)
-    buttonTimeThree.setTitle(timeArray[2], for: .normal)
+    timeCollectionView.reloadData()
+//    buttonTimeOne.setTitle(timeArray[0], for: .normal)
+//    buttonTimeTwo.setTitle(timeArray[1], for: .normal)
+//    buttonTimeThree.setTitle(timeArray[2], for: .normal)
     selectedDate = dateCalendar;
     return true
   }
@@ -162,16 +141,32 @@ class InvoiceController: UIViewController,FSCalendarDelegate,FSCalendarDataSourc
     var dateArray = [String]()
     
     array?.forEach({ DateTime in
+      if getDateStringToDate(DateTime.date) <= date {
       dateArray.append(DateTime.date)
+        if dateArray.contains(dateCalendar) {
+          cell.titleLabel.textColor = UIColor(red: 119/255, green: 119/255, blue: 119/255, alpha: 1.0)
+          cell.isUserInteractionEnabled = true
+        }else {
+          cell.titleLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
+          cell.isUserInteractionEnabled = false
+        }
+        
+      } else {
+        cell.titleLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
+        cell.isUserInteractionEnabled = false
+        
+
+      }
     })
     
-    if dateArray.contains(dateCalendar) {
-      cell.titleLabel.textColor = UIColor(red: 119/255, green: 119/255, blue: 119/255, alpha: 1.0)
-    }else {
-      cell.titleLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
-      cell.isUserInteractionEnabled = false
-    }
-    
+
+//    if dateArray.contains(dateCalendar) {
+//      cell.titleLabel.textColor = UIColor(red: 119/255, green: 119/255, blue: 119/255, alpha: 1.0)
+//    }else {
+//      cell.titleLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
+//      cell.isUserInteractionEnabled = false
+//    }
+//
     
   }
   
@@ -185,6 +180,13 @@ class InvoiceController: UIViewController,FSCalendarDelegate,FSCalendarDataSourc
   }
   
   
+  func getDateStringToDate(_ date:String) -> Date {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    dateFormatter.locale = NSLocale(localeIdentifier: "en-US") as Locale
+    let dateCalendar = dateFormatter.date(from: date)
+    return dateCalendar!
+  }
   
   func minimumDate(for calendar: FSCalendar) -> Date {
     return Date()
@@ -193,6 +195,21 @@ class InvoiceController: UIViewController,FSCalendarDelegate,FSCalendarDataSourc
   
   @IBAction func timeButtonTapped(_ sender: UIButton) {
     selectedTime(sender)
+  }
+  
+  
+  @IBAction func payDidPRessed(_ sender: Any) {
+      if let paymentMethods = paymentMethods, !paymentMethods.isEmpty {
+        
+          if let selectedIndex = selectedPaymentMethodIndex {
+              
+              if paymentMethods[selectedIndex].paymentMethodCode == MFPaymentMethodCode.applePay.rawValue {
+                  executeApplePayPayment(paymentMethodId: paymentMethods[selectedIndex].paymentMethodId)
+              } else {
+                  executePayment(paymentMethodId: paymentMethods[selectedIndex].paymentMethodId)
+              }
+          }
+      }
   }
   
   
@@ -242,45 +259,21 @@ class InvoiceController: UIViewController,FSCalendarDelegate,FSCalendarDataSourc
     
     let colorUnSelected = UIColor(red: 119/255, green: 119/255, blue: 119/255, alpha: 1.0)
     
-    if sender.tag == 1 {
-      buttonTimeOne.setTitleColor(colorSelected, for: .normal)
-      buttonTimeOne.superview!.layer.borderColor = colorSelected.cgColor
-      buttonTimeOne.superview!.layer.borderWidth = 1
-      
-      buttonTimeTwo.setTitleColor(colorUnSelected, for: .normal)
-      buttonTimeTwo.superview!.layer.borderColor = UIColor.clear.cgColor
-      buttonTimeTwo.superview!.layer.borderWidth = 1
-      
-      buttonTimeThree.setTitleColor(colorUnSelected, for: .normal)
-      buttonTimeThree.superview!.layer.borderColor = UIColor.clear.cgColor
-      buttonTimeThree.superview!.layer.borderWidth = 1
-      
-      
-    } else if sender.tag == 2 {
-      buttonTimeOne.setTitleColor(colorUnSelected, for: .normal)
-      buttonTimeOne.superview!.layer.borderColor = UIColor.clear.cgColor
-      buttonTimeOne.superview!.layer.borderWidth = 1
-      
-      buttonTimeTwo.setTitleColor(colorSelected, for: .normal)
-      buttonTimeTwo.superview!.layer.borderColor = colorSelected.cgColor
-      buttonTimeTwo.superview!.layer.borderWidth = 1
-      
-      buttonTimeThree.setTitleColor(colorUnSelected, for: .normal)
-      buttonTimeThree.superview!.layer.borderColor = UIColor.clear.cgColor
-      buttonTimeThree.superview!.layer.borderWidth = 1
-      
-    } else {
-      buttonTimeOne.setTitleColor(colorUnSelected, for: .normal)
-      buttonTimeOne.superview!.layer.borderColor = UIColor.clear.cgColor
-      buttonTimeOne.superview!.layer.borderWidth = 1
-      
-      buttonTimeTwo.setTitleColor(colorUnSelected, for: .normal)
-      buttonTimeTwo.superview!.layer.borderColor = UIColor.clear.cgColor
-      buttonTimeTwo.superview!.layer.borderWidth = 1
-      
-      buttonTimeThree.setTitleColor(colorSelected, for: .normal)
-      buttonTimeThree.superview!.layer.borderColor = colorSelected.cgColor
-      buttonTimeThree.superview!.layer.borderWidth = 1
+    for button in sender.superview!.superview!.superview!.subviews {
+      if NSStringFromClass(button.classForCoder) == "_UIScrollViewScrollIndicator" {
+      } else if button.subviews[0].subviews[0] is UIButton
+      {
+        let isButton:UIButton = button.subviews[0].subviews[0] as! UIButton
+        if isButton.tag == sender.tag {
+          sender.setTitleColor(colorSelected, for: .normal)
+          sender.superview!.layer.borderColor = colorSelected.cgColor
+          sender.superview!.layer.borderWidth = 1
+        } else {
+          isButton.setTitleColor(colorUnSelected, for: .normal)
+          isButton.superview!.layer.borderColor = colorUnSelected.cgColor
+          isButton.superview!.layer.borderWidth = 1
+        }
+      }
       
     }
     selectedTime = sender.titleLabel?.text
@@ -294,94 +287,45 @@ class InvoiceController: UIViewController,FSCalendarDelegate,FSCalendarDataSourc
   
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    if collectionView == self.collectionView {
       guard let paymentMethods = paymentMethods else {
           return 0
       }
       return paymentMethods.count
+    } else {
+      return timeArray.count
+    }
   }
   
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-      selectedPaymentMethodIndex = indexPath.row
-//      payButton.isEnabled = true
-
-//      if let paymentMethods = paymentMethods {
-//          if paymentMethods[indexPath.row].isDirectPayment {
-//              hideCardInfoStacksView(isHidden: false)
-//          } else {
-//              hideCardInfoStacksView(isHidden: true)
-//          }
-//      }
+    selectedPaymentMethodIndex = indexPath.row
+    payButton.isEnabled = true
+    
       collectionView.reloadData()
   }
   
-//  func hideCardInfoStacksView(isHidden: Bool) {
-//      for stackView in cardInfoStackViews {
-//          stackView.isHidden = isHidden
-//      }
-//  }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let colorUnSelected = UIColor(red: 119/255, green: 119/255, blue: 119/255, alpha: 1.0)
+
+    if collectionView == self.collectionView {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "payMethodsCell", for: indexPath) as! payMethodsCell
       if let paymentMethods = paymentMethods, !paymentMethods.isEmpty {
           let selectedIndex = selectedPaymentMethodIndex ?? -1
           cell.configure(paymentMethod: paymentMethods[indexPath.row], selected: selectedIndex == indexPath.row)
       }
       return cell
+    } else {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timeCell", for: indexPath) as! TimeCell
+      cell.timeButton.setTitle(timeArray[indexPath.row], for: .normal)
+      cell.timeButton.tag = indexPath.row
+      cell.timeButton.superview!.layer.borderColor = colorUnSelected.cgColor
+      cell.timeButton.superview!.layer.borderWidth = 1
+      return cell
+    }
   }
-  
-
-
-  
-
 
 }
 
-
-
-extension InvoiceController  {
-  func startSendPaymentLoading() {
-//      errorCodeLabel.text = "Status:"
-//      resultTextView.text = "Result:"
-//      sendPaymentButton.setTitle("", for: .normal)
-//      sendPaymentActivityIndicator.startAnimating()
-  }
-  func stopSendPaymentLoading() {
-//      sendPaymentButton.setTitle("Send Payment", for: .normal)
-//      sendPaymentActivityIndicator.stopAnimating()
-  }
-  func startLoading() {
-//      errorCodeLabel.text = "Status:"
-//      resultTextView.text = "Result:"
-//      payButton.setTitle("", for: .normal)
-//      activityIndicator.startAnimating()
-  }
-  func stopLoading() {
-//      payButton.setTitle("Pay", for: .normal)
-//      activityIndicator.stopAnimating()
-  }
-  func showSuccess(_ message: String) {
-//      errorCodeLabel.text = "Succes"
-//      resultTextView.text = "result: \(message)"
-  }
-  
-  func showFailError(_ error: MFFailResponse) {
-//      errorCodeLabel.text = "responseCode: \(error.statusCode)"
-//      resultTextView.text = "Error: \(error.errorDescription)"
-  }
-}
-extension InvoiceController {
-  func hideCardInfoStacksView(isHidden: Bool) {
-      for stackView in cardInfoStackViews {
-          stackView.isHidden = isHidden
-      }
-  }
-  private func setCardInfo() {
-      cardNumberTextField.text = "5123450000000008"
-      cardHolderNameTextField.text = "John Wick"
-      monthTextField.text = "05"
-      yearTextField.text = "21"
-      secureCodeTextField.text = "100"
-  }
-}
   

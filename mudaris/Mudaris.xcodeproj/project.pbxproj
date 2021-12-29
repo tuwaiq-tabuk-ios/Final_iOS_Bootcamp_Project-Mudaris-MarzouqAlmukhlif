@@ -18,6 +18,7 @@
 		B8126C3C2758D9C6009C9338 /* DIN NEXT™ ARABIC BOLD.otf in Resources */ = {isa = PBXBuildFile; fileRef = B8126C362758D92A009C9338 /* DIN NEXT™ ARABIC BOLD.otf */; };
 		B8126C3D2758D9C6009C9338 /* DIN NEXT™ ARABIC MEDIUM .otf in Resources */ = {isa = PBXBuildFile; fileRef = B8126C342758D92A009C9338 /* DIN NEXT™ ARABIC MEDIUM .otf */; };
 		B83D3492276614D2007D3D6E /* InvoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83D3491276614D2007D3D6E /* InvoiceController.swift */; };
+		B856CB02277B4EB40004CC55 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B856CB01277B4EB40004CC55 /* TimeCell.swift */; };
 		B8C3121027536DB70036BC1E /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C3120F27536DB70036BC1E /* DetailsViewController.swift */; };
 		B8DB64FD274AF2F600D86D95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DB64FC274AF2F600D86D95 /* AppDelegate.swift */; };
 		B8DB64FF274AF2F600D86D95 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DB64FE274AF2F600D86D95 /* SceneDelegate.swift */; };
@@ -29,7 +30,7 @@
 		B8DB6515274B028400D86D95 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DB6514274B028400D86D95 /* LoginViewController.swift */; };
 		B8DB6518274B02AC00D86D95 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DB6517274B02AC00D86D95 /* SignUpViewController.swift */; };
 		B8F551D6277482DB0083CF60 /* payMethodsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F551D5277482DB0083CF60 /* payMethodsCell.swift */; };
-		B8F551D8277488C50083CF60 /* ViewController+MFSDKServicesCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F551D7277488C50083CF60 /* ViewController+MFSDKServicesCall.swift */; };
+		B8F551D8277488C50083CF60 /* InvoiceController+MFSDKServicesCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F551D7277488C50083CF60 /* InvoiceController+MFSDKServicesCall.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		B8126C362758D92A009C9338 /* DIN NEXT™ ARABIC BOLD.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DIN NEXT™ ARABIC BOLD.otf"; sourceTree = "<group>"; };
 		B8126C372758D92A009C9338 /* DIN NEXT™ ARABIC REGULAR.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DIN NEXT™ ARABIC REGULAR.otf"; sourceTree = "<group>"; };
 		B83D3491276614D2007D3D6E /* InvoiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceController.swift; sourceTree = "<group>"; };
+		B856CB01277B4EB40004CC55 /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		B8C3120F27536DB70036BC1E /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		B8DB64F9274AF2F600D86D95 /* Mudaris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mudaris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8DB64FC274AF2F600D86D95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,7 +61,7 @@
 		B8DB6514274B028400D86D95 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B8DB6517274B02AC00D86D95 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B8F551D5277482DB0083CF60 /* payMethodsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = payMethodsCell.swift; path = Mudaris/payMethodsCell.swift; sourceTree = SOURCE_ROOT; };
-		B8F551D7277488C50083CF60 /* ViewController+MFSDKServicesCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+MFSDKServicesCall.swift"; sourceTree = "<group>"; };
+		B8F551D7277488C50083CF60 /* InvoiceController+MFSDKServicesCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "InvoiceController+MFSDKServicesCall.swift"; sourceTree = "<group>"; };
 		C2D04905DD485E37ABD05507 /* Pods-Mudaris.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mudaris.debug.xcconfig"; path = "Target Support Files/Pods-Mudaris/Pods-Mudaris.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,7 +104,7 @@
 				B8126C2F2758B05F009C9338 /* TeacherViewController.swift */,
 				B8C3120F27536DB70036BC1E /* DetailsViewController.swift */,
 				B83D3491276614D2007D3D6E /* InvoiceController.swift */,
-				B8F551D7277488C50083CF60 /* ViewController+MFSDKServicesCall.swift */,
+				B8F551D7277488C50083CF60 /* InvoiceController+MFSDKServicesCall.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -177,6 +179,7 @@
 		B8DB64FB274AF2F600D86D95 /* Mudaris */ = {
 			isa = PBXGroup;
 			children = (
+				B856CB01277B4EB40004CC55 /* TimeCell.swift */,
 				B8F551D5277482DB0083CF60 /* payMethodsCell.swift */,
 				B8126C312758D8F0009C9338 /* Fonts */,
 				B80A52A4274B6C6200FEA10A /* Delegates */,
@@ -317,10 +320,11 @@
 				B8DB64FF274AF2F600D86D95 /* SceneDelegate.swift in Sources */,
 				B83D3492276614D2007D3D6E /* InvoiceController.swift in Sources */,
 				B80A52B6274BD0BD00FEA10A /* Teachers.swift in Sources */,
+				B856CB02277B4EB40004CC55 /* TimeCell.swift in Sources */,
 				B8DB6515274B028400D86D95 /* LoginViewController.swift in Sources */,
 				B8DB6512274B027B00D86D95 /* MainViewController.swift in Sources */,
 				B80A52AE274B73BB00FEA10A /* TeacherTableViewCell.swift in Sources */,
-				B8F551D8277488C50083CF60 /* ViewController+MFSDKServicesCall.swift in Sources */,
+				B8F551D8277488C50083CF60 /* InvoiceController+MFSDKServicesCall.swift in Sources */,
 				B8C3121027536DB70036BC1E /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
